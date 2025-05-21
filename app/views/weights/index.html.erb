@@ -1,0 +1,72 @@
+<div class="flex flex-col">
+  <h2><%= link_to "フォーム", new_weight_path %> </h2>
+  <h2>体重と体脂肪率の推移</h2>
+  <canvas id="weightChart" width="600" height="300"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // グローバルで1回だけ宣言。Turboのページ遷移での多重宣言防止用
+    window.weightChart = window.weightChart || null;
+
+    document.addEventListener("turbo:load", () => {
+      const canvas = document.getElementById('weightChart');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+
+      // 既存チャートがあれば破棄する
+      if (window.weightChart instanceof Chart) {
+        window.weightChart.destroy();
+      }
+
+      // 新しいチャートを作成
+      window.weightChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: <%= raw @dates.to_json %>,
+          datasets: [
+            {
+              label: '体重(kg)',
+              data: <%= raw @weight_values.to_json %>,
+              borderColor: 'rgba(75, 192, 192, 0.65)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              yAxisID: 'y1',
+            },
+            {
+              label: '体脂肪率(%)',
+              data: <%= raw @fat_rate_values.to_json %>,
+              borderColor: 'rgba(255, 99, 132, 1)',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              yAxisID: 'y2',
+              borderWidth: 3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y1: {
+              type: 'linear',
+              position: 'left',
+              title: {
+                display: true,
+                text: '体重(kg)'
+              }
+            },
+            y2: {
+              type: 'linear',
+              position: 'right',
+              title: {
+                display: true,
+                text: '体脂肪率(%)'
+              },
+              grid: {
+                drawOnChartArea: false,
+              },
+            }
+          }
+        }
+      });
+    });
+  </script>
+</div>

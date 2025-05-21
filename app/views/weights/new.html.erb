@@ -1,0 +1,26 @@
+  <h3>新しい記録を追加</h3>
+
+  <div class="max-w-md mx-auto my-8 p-6 bg-white rounded shadow-md">
+    <h2 class="text-2xl font-semibold mb-4 text-purple-700">体重・体脂肪率の記録</h2>
+
+    <%= form_with model: Weight.new, url: weights_path, method: :post, local: true do |f| %>
+      <div class="mb-4">
+        <%= f.label :recorded_on, "日付", class: "block text-gray-700 mb-1" %>
+        <%= f.date_field :recorded_on, value: Date.today, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :weight, "体重 (kg)", class: "block text-gray-700 mb-1" %>
+        <%= f.number_field :weight, step: 0.1, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500", placeholder: "例: 60.5" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :fat_rate, "体脂肪率 (%)", class: "block text-gray-700 mb-1" %>
+        <%= f.number_field :fat_rate, step: 0.1, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500", placeholder: "例: 15.2" %>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit "記録を保存", class: "bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 transition" %>
+      </div>
+    <% end %>
+  </div>
