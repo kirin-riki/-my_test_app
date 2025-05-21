@@ -1,0 +1,53 @@
+<div class="simple-calendar">
+  <div class="calendar-heading flex justify-between items-center my-4">
+    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "text-purple-700 underline" %>
+    <span class="calendar-title text-xl font-semibold text-purple-800">
+      <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
+    </span>
+    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "text-purple-700 underline" %>
+  </div>
+
+  <table class="w-full">
+    <thead>
+      <tr>
+        <% date_range.slice(0, 7).each do |day| %>
+          <% th_classes = "text-center text-sm py-2" %>
+          <% th_classes += " text-red-500" if day.wday == 0 %> <!-- 日曜日だけ赤く -->
+          <% th_classes += " text-purple-600" if day.wday != 0 %> <!-- その他は紫 -->
+
+          <th class="<%= th_classes %>">
+            <%= t('date.abbr_day_names')[day.wday] %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% date_range.each_slice(7) do |week| %>
+        <tr>
+          <% week.each do |day| %>
+            <td class="text-center py-2">
+              <% classes = "w-10 h-10 flex items-center justify-center rounded-full mx-auto border border-purple-500 text-purple-700" %>
+
+              <% if day == Date.today %>
+                <% classes += " bg-purple-200 font-bold text-purple-800" %>
+              <% end %>
+
+              <% selected_day = begin
+                   Date.parse(params[:selected_date]) if params[:selected_date].present?
+                 rescue
+                   nil
+                 end %>
+
+              <% if selected_day == day %>
+                <% classes = "w-10 h-10 flex items-center justify-center rounded-full mx-auto bg-purple-700 text-white" %>
+              <% end %>
+
+              <%= link_to day.day, root_path(selected_date: day), class: classes %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
