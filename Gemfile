@@ -59,4 +59,4 @@ end
 gem "tailwindcss-rails"
 gem "tailwindcss-ruby", "3.4.17"
 
-gem 'simple_calendar', '~>2.0'
+gem 'simple_calendar', '~>3.1'
