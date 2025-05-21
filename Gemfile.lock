@@ -100,7 +100,7 @@ GEM
     debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    drb (2.2.1)
+    drb (2.2.3)
     erb (5.0.1)
     erubi (1.13.1)
     globalid (1.2.1)
@@ -198,7 +198,7 @@ GEM
       activesupport (= 7.2.2.1)
       bundler (>= 1.15.0)
       railties (= 7.2.2.1)
-    rails-dom-testing (2.2.0)
+    rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -259,8 +259,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    simple_calendar (2.4.3)
-      rails (>= 3.0)
+    simple_calendar (3.1.0)
+      rails (>= 6.1)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
@@ -328,7 +328,7 @@ DEPENDENCIES
   rails (~> 7.2.2, >= 7.2.2.1)
   rubocop-rails-omakase
   selenium-webdriver
-  simple_calendar (~> 2.0)
+  simple_calendar (~> 3.1)
   sprockets-rails
   stimulus-rails
   tailwindcss-rails
